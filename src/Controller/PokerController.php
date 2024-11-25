@@ -22,7 +22,7 @@ class PokerController{
         if ($age < 18) {
             return new Response('Cé pa pour ton age peti sakripan');
         } else {
-            return new Response('C open bar tu peu y allé');
+            return new Response('C open bar tu peu i allé');
         }
     }
 }
