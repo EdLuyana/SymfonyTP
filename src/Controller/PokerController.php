@@ -17,7 +17,12 @@ class PokerController{
         $request = Request::createFromGlobals();
         //I use query to get all my datas
         $age = $request->query->get('age');
-        var_dump($age); die;
-        return new Response('Bienvenue sur le site de Poker');
+        //var_dump($age); die;
+        //return new Response('Bienvenue sur le site de Poker');
+        if ($age < 18) {
+            return new Response('Cé pa pour ton age peti sakripan');
+        } else {
+            return new Response('C open bar tu peu y allé');
+        }
     }
 }
