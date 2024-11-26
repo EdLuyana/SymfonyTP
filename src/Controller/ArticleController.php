@@ -110,4 +110,17 @@ class ArticleController extends AbstractController
         return $this->render('article_show.html.twig',
             ['article' => $articleFound]);
     }
+
+    #[Route('articles/search-results', name: 'article_search_results')]
+
+    // instead of using createFromGlobal and create a new var $request using it, I put as parameter of the function the class type and the var associated, it's called autowire
+    public function articleSearchResults(Request $request)
+    {
+
+        $search = $request->query->get('search');
+
+        dump($search);
+        die;
+
+    }
 }
