@@ -119,8 +119,7 @@ class ArticleController extends AbstractController
 
         $search = $request->query->get('search');
 
-        dump($search);
-        die;
+        return $this->render('article_search_results.html.twig', ['search' => $search]);
 
     }
 }

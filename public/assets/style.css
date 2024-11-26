@@ -2,6 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    text-align: center;
+    background-image: url("img/full.jpg");
+}
+h1, h2, h3 {
+    font-family: cursive;
 }
 
 .articles-container {
@@ -17,4 +22,5 @@
     background-color: black;
     text-align: center;
     border: 1px solid black;
+    font-family: cursive;
 }
