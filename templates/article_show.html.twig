@@ -1,6 +1,10 @@
-{% include "partials/_header.html.twig" %}
+{% extends 'base.html.twig' %}
 
-<main>
+{% block metatitle %}
+    {{ article.title }}
+{% endblock metatitle %}
+
+{% block main %}
 
     <section class="articles-container">
 
@@ -10,5 +14,4 @@
 
     </section>
 
-</main>
-{% include "partials/_footer.html.twig" %}
+{% endblock main %}
