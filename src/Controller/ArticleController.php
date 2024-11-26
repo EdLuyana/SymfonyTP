@@ -65,35 +65,40 @@ class ArticleController extends AbstractController
                 'title' => 'Power Ranger Bleu',
                 'content' => 'Content of article 1',
                 'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
-                'color' => 'blue'
+                'color' => 'blue',
+                'createdAt' => new \DateTime('2030-01-01 00:00:00')
             ],
             [
                 'id' => 2,
                 'title' => 'Power Ranger Rouge',
                 'content' => 'Content of article 2',
                 'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
-                'color' => 'red'
+                'color' => 'red',
+                'createdAt' => new \DateTime('2030-01-01 00:00:00')
             ],
             [
                 'id' => 3,
                 'title' => 'Power Ranger Jaune',
                 'content' => 'Content of article 3',
                 'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
-                'color' => 'yellow'
+                'color' => 'yellow',
+                'createdAt' => new \DateTime('2030-01-01 00:00:00')
             ],
             [
                 'id' => 4,
                 'title' => 'Power Ranger Rose',
                 'content' => 'Content of article 4',
                 'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
-                'color' => 'pink'
+                'color' => 'pink',
+                'createdAt' => new \DateTime('2030-01-01 00:00:00')
             ],
             [
                 'id' => 5,
                 'title' => 'Power Ranger Vert',
                 'content' => 'Content of article 5',
                 'image' => 'https://static.vecteezy.com/system/resources/thumbnails/012/176/986/small_2x/a-3d-rendering-image-of-grassed-hill-nature-scenery-png.png',
-                'color' => 'green'
+                'color' => 'green',
+                'createdAt' => new \DateTime('2030-01-01 00:00:00')
             ]
 
         ];
@@ -112,7 +117,6 @@ class ArticleController extends AbstractController
     }
 
     #[Route('articles/search-results', name: 'article_search_results')]
-
     // instead of using createFromGlobal and create a new var $request using it, I put as parameter of the function the class type and the var associated, it's called autowire
     public function articleSearchResults(Request $request)
     {

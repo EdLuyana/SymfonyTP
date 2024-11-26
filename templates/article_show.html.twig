@@ -10,6 +10,7 @@
 
             <article class="article-container" style=color:{{ article.color }}>
                 <h3>{{ article.title }}</h3>
+                <p>Date de création : {{ article.createdAt | date('d/m/y h:i:s') }}</p>
             </article>
 
     </section>
