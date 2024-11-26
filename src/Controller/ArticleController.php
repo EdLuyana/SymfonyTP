@@ -54,7 +54,7 @@ class ArticleController extends AbstractController
     }
 
     // Creating the URL for my new page about article, this URL got a var right now as id
-    #[Route('/article/{id}', 'article_show')]
+    #[Route('/article/{id}', 'article_show', ['id' => '\d+'], ['id' => 1])]
     // function got a new parameter, this one match with url var name. Symfony put URL var as parameter of the function
     public function showArticle($id)
     {
