@@ -53,14 +53,11 @@ class ArticleController extends AbstractController
         return $this->render('articles_list.html.twig', ['articles' => $articles]);
     }
 
-    // Creating the URL for my new page about article
-    #[Route('/article', 'article_show')]
-    public function showArticle()
+    // Creating the URL for my new page about article, this URL got a var right now as id
+    #[Route('/article/{id}', 'article_show')]
+    // function got a new parameter, this one match with url var name. Symfony put URL var as parameter of the function
+    public function showArticle($id)
     {
-// Using Request class from Symfony thanks to createFromGlobals, this way my $request receive all infos from GET, POST, IP etc...)
-        $request = Request::createFromGlobals();
-        // Here $id will able to take id's from get
-        $id = $request->query->get('id');
 
         $articles = [
             [
