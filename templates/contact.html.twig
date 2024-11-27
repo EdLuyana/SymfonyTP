@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+    Contact
+{% endblock metatitle %}
+
+{% block main %}
+
+    <h1>Formulaire de Contact</h1>
+    <form method="POST">
+        <label for="contactName">Nom :</label>
+        <input type="text" id="contactName" name="contactName" placeholder="Votre nom" required>
+        <br><br>
+
+        <label for="message">Message :</label><br>
+        <textarea id="message" name="message" rows="5" cols="30" placeholder="Votre message" required></textarea>
+        <br><br>
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <h3>Votre message:</h3>
+    <ul>
+        <li> {{ nom }}</li>
+        <li> {{ message }}</li>
+    </ul>
+
+{% endblock main %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -56,7 +57,7 @@ class ArticleController extends AbstractController
     // Creating the URL for my new page about article, this URL got a var right now as id
     #[Route('/article/{id}', 'article_show', ['id' => '\d+'], ['id' => 1])]
     // function got a new parameter, this one match with url var name. Symfony put URL var as parameter of the function
-    public function showArticle($id)
+    public function showArticle(int $id): Response
     {
 
         $articles = [
@@ -103,13 +104,17 @@ class ArticleController extends AbstractController
 
         ];
 // I create my new var $article as null for now
-        $article = null;
+        $articleFound = null;
 
         // for each articles in the array I check if his ad match with id from get method, if yes articleFound become the article with the id
         foreach ($articles as $article) {
             if ($article['id'] === (int)$id) {
                 $articleFound = $article;
             }
+        }
+
+        if (!$articleFound) {
+            return $this->redirectToRoute('not_found');
         }
 // I do a return an HTTP answer thanks to render method
         return $this->render('article_show.html.twig',
