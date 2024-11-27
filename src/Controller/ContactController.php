@@ -19,8 +19,15 @@ class ContactController extends AbstractController
         $contactName = $request->request->get('contactName');
         $message = $request->request->get('message');
 
-        // I return to the twig file my vars as 'nom' and 'message'
+        if (empty($contactName) || empty($message)) {
 
+            return $this->render("contact.html.twig", [
+                'error' => 'Veuillez remplir tous les champs' ,
+                'nom' => $contactName ,
+                'message' => $message ,
+            ]);
+        }
+        // I return to the twig file my vars as 'nom' and 'message'
         return $this->render("contact.html.twig", ['nom'=>$contactName, 'message'=>$message]);
 
 
