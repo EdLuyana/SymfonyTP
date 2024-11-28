@@ -93,7 +93,7 @@ class CategoryController extends AbstractController
     public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository) {
         // I get the category in the repo by the ID mentioned in the URL
         $category = $categoryRepository->find($id);
-        // I edit the title and de content of the category
+        // I edit the title and the color of the category
         $category->setTitle('Categorie mise a jour');
         $category->setColor('red');
         // I presave my modification in database

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block metatitle %}
-    Creation d'Article'
+    Creation d'Article
 {% endblock metatitle %}
 
 {% block main %}
@@ -9,7 +9,21 @@
     <section class="articles-container">
 
         <article class="article-container">
-            Vous avez bien créé l'article: {{ article.title }}
+                        <form action="{{ path('article_create') }}" method="POST">
+                <div>
+                    <label for="title">Titre de l'article :</label>
+                    <input id="title" type="text" name="title" placeholder="Entrez le titre de l'article">
+                </div>
+                <div>
+                    <label for="content">Contenu de l'article :</label>
+                    <textarea id="content" name="content" placeholder="Écrivez le contenu de l'article"></textarea>
+                </div>
+                <div>
+                    <label for="image">Image :</label>
+                    <input type="text" id="image" name="image">
+                </div>
+                <button type="submit">Créer l'article</button>
+            </form>
         </article>
 
     </section>

@@ -46,27 +46,47 @@ class ArticleController extends AbstractController
 
     }
 
-    #[Route('/article/create', name: 'article_create')]
-    public function createArticle(EntityManagerInterface $entityManager){
+    #[Route('article/create', 'article_create')]
+    public function createArticle(Request $request, EntityManagerInterface $entityManager)
+    {
 
-        // Create an article
 
-        $article = new Article();
+        if ($request->isMethod('POST')) {
 
-        // Using set methods to fill article's proprieties
-        $article->setTitle('Article 5');
-        $article->setContent("C'est le contenu de l'article 5");
-        $article->setImage("https://images7.memedroid.com/images/UPLOADED233/60dc7be64dc25.jpeg");
-        $article->setCreatedAt(new \DateTime('now'));
+            // Create an article
+            $article = new Article();
+            // Using set methods to fill article's proprieties
+            $title = $request->request->get('title');
+            $content = $request->request->get('content');
+            $image = $request->request->get('image');
+            if (empty($title) || empty($content)) {
 
-        // Register it thanks to entityManager
-        // This ons allows to save and delete entities in database
-        // persist can pre-save entities
-        $entityManager->persist($article);
-        // flush execute SQL's request to create a new article
-        $entityManager->flush();
+                return $this->render("contact.html.twig", [
+                    'error' => 'Veuillez remplir tous les champs',
+                    'title' => $title,
+                    'content' => $content,
+                ]);
+            }
 
-        return $this->render('article_create.html.twig', ['article' => $article]);
+            $article->setTitle($title);
+            $article->setContent($content);
+            $article->setImage($image);
+            $article->setCreatedAt(new \DateTime('now'));
+
+
+            // Register it thanks to entityManager
+            // This ons allows to save and delete entities in database
+            // persist can pre-save entities
+            $entityManager->persist($article);
+            // flush execute SQL's request to create a new article
+            $entityManager->flush();
+
+            return $this->render('article_create.html.twig', ['article' => $article]);
+
+        } else {
+            $view = $this->renderView('404.html.twig');
+        }
+        return $this->render("article_create.html.twig");
 
     }
     #[Route('/article/delete/{id}', 'delete_article', ['id' => '\d+'] )]
