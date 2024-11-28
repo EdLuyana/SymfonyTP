@@ -12,6 +12,8 @@
         <article class="article-container">
             <h3>{{ category.title }}</h3>
             <a href="{{ path('category_show', {id: category.id}) }}">Voir la categorie</a>
+            <a href="{{ path('delete_category', {id: category.id}) }}">Supprimer la categorie</a>
+            <a href="{{ path('update_category', {id: category.id}) }}">Editer la categorie</a>
         </article>
     {% endfor %}
 {% endblock main %}

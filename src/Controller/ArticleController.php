@@ -84,6 +84,21 @@ class ArticleController extends AbstractController
         // Register remove in database
         $entityManager->flush();
 
-        return new Response('article supprimé');
+        return $this->render('article_delete.html.twig', ['article' => $article]);
+    }
+    #[Route('/article/update/{id}', 'update_article', ['id' => '\d+'])]
+public function updateArticle(int $id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository) {
+        // I get the article in the repo by the ID mentionned in the URL
+        $article = $articleRepository->find($id);
+        // I edit the title and de content of the article
+        $article->setTitle('Article 5 v1.1');
+        $article->setContent("C'est le contenu de l'article 5 v1.1");
+        // I presave my modification in database
+        $entityManager->persist($article);
+        // flush execute SQL's request to update the article
+        $entityManager->flush();
+
+        return $this->render('article_update.html.twig', ['article' => $article]);
+
     }
 }

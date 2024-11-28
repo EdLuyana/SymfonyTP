@@ -13,6 +13,8 @@
             <article class="article-container">
                 <h3>{{ article.title }}</h3>
                 <a href="{{ path('article_show', {id: article.id}) }}">Voir l'article</a>
+                <a href="{{ path('delete_article', {id: article.id}) }}">Supprimer l'article</a>
+                <a href="{{ path('update_article', {id: article.id}) }}">Editer l'article</a>
             </article>
         {% endfor %}
 
