@@ -65,7 +65,7 @@ public function categoryShow(int $id, CategoryRepository $categoryRepository): R
         // flush execute SQL's request to create a new article
         $entityManager->flush();
 
-        return new Response('ok');
+        return new Response('Category created');
 
 
     }
