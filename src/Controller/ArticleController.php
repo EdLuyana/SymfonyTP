@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,6 +43,31 @@ class ArticleController extends AbstractController
         $search = $request->query->get('search');
 
         return $this->render('article_search_results.html.twig', ['search' => $search]);
+
+    }
+
+    #[Route('/article/create', name: 'article_create')]
+    public function createArticle(EntityManagerInterface $entityManager){
+
+        // Create an article
+
+        $article = new Article();
+
+        // Using set methods to fill article's proprieties
+        $article->setTitle('Article 5');
+        $article->setContent("C'est le contenu de l'article 5");
+        $article->setImage("https://images7.memedroid.com/images/UPLOADED233/60dc7be64dc25.jpeg");
+        $article->setCreatedAt(new \DateTime('now'));
+
+        // Register it thanks to entityManager
+        // This ons allows to save and delete entities in database
+        // persist can pre-save entities
+        $entityManager->persist($article);
+        // flush execute SQL's request to create a new article
+        $entityManager->flush();
+
+        return new Response('ok');
+
 
     }
 }
