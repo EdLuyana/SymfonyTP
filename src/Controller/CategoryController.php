@@ -94,8 +94,8 @@ class CategoryController extends AbstractController
         // I get the category in the repo by the ID mentioned in the URL
         $category = $categoryRepository->find($id);
         // I edit the title and de content of the category
-        $category->setTitle('Article 5 v1.1');
-        $category->setContent("C'est le contenu de l'article 5 v1.1");
+        $category->setTitle('Categorie mise a jour');
+        $category->setColor('red');
         // I presave my modification in database
         $entityManager->persist($category);
         // flush execute SQL's request to update the category
