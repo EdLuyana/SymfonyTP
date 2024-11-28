@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Article;
+use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,4 +44,29 @@ public function categoryShow(int $id, CategoryRepository $categoryRepository): R
     // cetegoryFound become 'category' var in the twig
     return $this->render('category_show.html.twig', ['category' => $categoryFound]);
 }
+
+    #[Route('/category/create', name: 'category_create')]
+
+    //Here we call EntityManagerInterface to be able to use it, and we create a var to manage entities
+    public function createCategory(EntityManagerInterface $entityManager){
+
+        // Create an article
+
+        $category = new Category();
+
+        // Using set methods to fill category's proprieties
+        $category->setTitle('Animals');
+        $category->setColor('orange');
+
+        // Register it thanks to entityManager
+        // This ons allows to save and delete entities in database
+        // persist can pre-save entities
+        $entityManager->persist($category);
+        // flush execute SQL's request to create a new article
+        $entityManager->flush();
+
+        return new Response('ok');
+
+
+    }
 }
