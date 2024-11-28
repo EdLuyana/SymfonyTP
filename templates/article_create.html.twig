@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+    Creation d'Article'
+{% endblock metatitle %}
+
+{% block main %}
+
+    <section class="articles-container">
+
+        <article class="article-container">
+            Vous avez bien créé l'article: {{ article.title }}
+        </article>
+
+    </section>
+
+{% endblock main %}

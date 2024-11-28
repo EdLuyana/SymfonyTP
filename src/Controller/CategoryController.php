@@ -65,7 +65,7 @@ public function categoryShow(int $id, CategoryRepository $categoryRepository): R
         // flush execute SQL's request to create a new article
         $entityManager->flush();
 
-        return new Response('Category created');
+        return $this->render('category_create.html.twig', ['category' => $category]);
 
 
     }

@@ -66,7 +66,7 @@ class ArticleController extends AbstractController
         // flush execute SQL's request to create a new article
         $entityManager->flush();
 
-        return new Response('ok');
+        return $this->render('article_create.html.twig', ['article' => $article]);
 
 
     }
