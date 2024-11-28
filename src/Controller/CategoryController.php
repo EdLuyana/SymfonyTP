@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,5 +69,22 @@ public function categoryShow(int $id, CategoryRepository $categoryRepository): R
         return $this->render('category_create.html.twig', ['category' => $category]);
 
 
+    }
+    #[Route('/category/delete/{id}', 'delete_category', ['id' => '\d+'] )]
+    // Here I get the id from URL, I also call the entity manager to use his methods, and I call the arti.repo to find it in database
+    public function removeCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository): Response {
+
+        //Select article by id thanks to art repo
+        $category = $categoryRepository->find($id);
+        // If article not found (already deleted for example, we return an error (here Error 404, but we ca, create a new Route to explain this article doesn't exist
+        if (!$category) {
+            return $this->redirectToRoute('not_found');
+        }
+        // Delete article and presave thanks to remove method from entityManager
+        $entityManager->remove($category);
+        // Register remove in database
+        $entityManager->flush();
+
+        return new Response('categorie supprimée');
     }
 }
