@@ -68,6 +68,22 @@ class ArticleController extends AbstractController
 
         return $this->render('article_create.html.twig', ['article' => $article]);
 
+    }
+    #[Route('/article/delete/{id}', 'delete_article', ['id' => '\d+'] )]
+    // Here I get the id from URL, I also call the entity manager to use his methods, and I call the arti.repo to find it in database
+    public function removeArticle(int $id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository): Response {
 
+        //Select article by id thanks to art repo
+        $article = $articleRepository->find($id);
+        // If article not found (already deleted for example, we return an error (here Error 404, but we ca, create a new Route to explain this article doesn't exist
+        if (!$article) {
+            return $this->redirectToRoute('not_found');
+        }
+        // Delete article and presave thanks to remove method from entityManager
+        $entityManager->remove($article);
+        // Register remove in database
+        $entityManager->flush();
+
+        return new Response('article supprimé');
     }
 }
