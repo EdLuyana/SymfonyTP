@@ -10,7 +10,7 @@
 
         {% for article in articles %}
 
-            <article class="article-container" style=color:{{ article.color }}>
+            <article class="article-container">
                 <h3>{{ article.title }}</h3>
                 <a href="{{ path('article_show', {id: article.id}) }}">Voir l'article</a>
             </article>

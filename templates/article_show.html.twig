@@ -8,8 +8,13 @@
 
     <section class="articles-container">
 
-            <article class="article-container" style=color:{{ article.color }}>
+            <article class="article-container">
                 <h3>{{ article.title }}</h3>
+                <div>
+                    <figure>
+                        <img src="{{ article.image }}">
+                    </figure>
+                </div>
                 <p>Date de création : {{ article.createdAt | date('d/m/y h:i:s') }}</p>
             </article>
 
