@@ -6,26 +6,8 @@
 
 {% block main %}
 
-    <section class="articles-container">
 
-        <article class="article-container">
-                        <form action="{{ path('article_create') }}" method="POST">
-                <div>
-                    <label for="title">Titre de l'article :</label>
-                    <input id="title" type="text" name="title" placeholder="Entrez le titre de l'article" required>
-                </div>
-                <div>
-                    <label for="content">Contenu de l'article :</label>
-                    <textarea id="content" name="content" placeholder="Écrivez le contenu de l'article" required></textarea>
-                </div>
-                <div>
-                    <label for="image">Image :</label>
-                    <input type="text" id="image" name="image">
-                </div>
-                <button type="submit">Créer l'article</button>
-            </form>
-        </article>
+              {{ form(formView) }}
 
-    </section>
 
 {% endblock main %}

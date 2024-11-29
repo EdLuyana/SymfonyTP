@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,32 +50,16 @@ class ArticleController extends AbstractController
     #[Route('article/create', 'article_create')]
     public function createArticle(Request $request, EntityManagerInterface $entityManager)
     {
-
-        if ($request->isMethod('POST')) {
-
-            // Create an article
+// Creating a new Article
             $article = new Article();
-            // Using set methods to fill article's proprieties
-            $title = $request->request->get('title');
-            $content = $request->request->get('content');
-            $image = $request->request->get('image');
+            // I use AbstractController'method to gen a from for the new article
+        //I put as parameter the way for the class's model and as second parameter my fresh var created
+        $form = $this->createForm(ArticleType::class, $article);
+        // I create now a view for this form to use it in the twig
+        $formView = $form->createView();
 
-            $article->setTitle($title);
-            $article->setContent($content);
-            $article->setImage($image);
-            $article->setCreatedAt(new \DateTime('now'));
+        return $this->render('article_create.html.twig', ['formView' => $formView]);
 
-
-            // Register it thanks to entityManager
-            // This ons allows to save and delete entities in database
-            // persist can pre-save entities
-            $entityManager->persist($article);
-            // flush execute SQL's request to create a new article
-            $entityManager->flush();
-
-
-        }
-        return $this->render("article_create.html.twig");
 
     }
     #[Route('/article/delete/{id}', 'delete_article', ['id' => '\d+'] )]
