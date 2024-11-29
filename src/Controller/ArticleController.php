@@ -107,7 +107,7 @@ public function updateArticle(int $id, Request $request, EntityManagerInterface 
             // Register in database
             $entityManager->flush();
         }
-        // I create now a view for this form to use it in the twig
+        // I update now a view for this form to use it in the twig
         $formView = $form->createView();
 
         return $this->render('article_update.html.twig', ['formView' => $formView]);
