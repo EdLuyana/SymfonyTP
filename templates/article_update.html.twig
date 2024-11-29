@@ -10,7 +10,7 @@
 
         <article class="article-container">
 
-            <form action="{{ path('article_update') }}" method="POST">
+            <form action="{{ path('update_article',{id: article.id}) }}" method="POST">
                 <div>
                     <label for="title">Titre de l'article :</label>
                     <input id="title" type="text" name="title" value="{{ article.title }}" required>
@@ -23,7 +23,7 @@
                     <label for="image">Image :</label>
                     <input type="text" id="image" name="image" value="{{ article.image }}">
                 </div>
-                <button type="submit">Créer l'article</button>
+                <button type="submit">Modifier l'article</button>
             </form>
         </article>
 
