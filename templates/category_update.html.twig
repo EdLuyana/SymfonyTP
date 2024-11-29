@@ -6,22 +6,6 @@
 
 {% block main %}
 
-    <section class="articles-container">
-
-        <article class="article-container">
-            <form action="{{ path('update_category', {id: category.id}) }}" method="POST">
-                <div>
-                    <label for="title">Titre de la catégorie :</label>
-                    <input id="title" type="text" name="title" value="{{ category.title }}" required>
-                </div>
-                <div>
-                    <label for="color">Couleur de la catégorie:</label>
-                    <input id="color" name="color" type="color" value="{{ category.color }}" required>
-                </div>
-                <button type="submit">Modifier la Categorie</button>
-            </form>
-        </article>
-
-    </section>
+  {{ form(formView) }}
 
 {% endblock main %}
