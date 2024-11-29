@@ -95,18 +95,35 @@ class ArticleController extends AbstractController
         return $this->render('article_delete.html.twig', ['article' => $article]);
     }
     #[Route('/article/update/{id}', 'update_article', ['id' => '\d+'])]
-public function updateArticle(int $id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository) {
+public function updateArticle(int $id, Request $request, EntityManagerInterface $entityManager, ArticleRepository $articleRepository) {
         // I get the article in the repo by the ID mentionned in the URL
         $article = $articleRepository->find($id);
-        // I edit the title and de content of the article
-        $article->setTitle('Article 5 v1.1');
-        $article->setContent("C'est le contenu de l'article 5 v1.1");
-        // I presave my modification in database
-        $entityManager->persist($article);
-        // flush execute SQL's request to update the article
-        $entityManager->flush();
+        // I set a message to explain what we are waiting from user
+        $message = "Veuillez remplir les champs";
+        // if the form is a post method :
+        if ($request->isMethod('POST')) {
 
-        return $this->render('article_update.html.twig', ['article' => $article]);
+            // Using set methods to fill article's proprieties
+            $title = $request->request->get('title');
+            $content = $request->request->get('content');
+            $image = $request->request->get('image');
+
+            $article->setTitle($title);
+            $article->setContent($content);
+            $article->setImage($image);
+            // Register it thanks to entityManager
+            // This ons allows to save and delete entities in database
+            // persist can pre-save entities
+            $entityManager->persist($article);
+            // flush execute SQL's request to create a new article
+            $entityManager->flush();
+
+            $message = "L'article '" . $article->getTitle() . "' a bien été modifié";
+
+
+        }
+
+        return $this->render('article_update.html.twig', ['message' => $message, 'article' => $article]);
 
     }
 }

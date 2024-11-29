@@ -49,7 +49,7 @@ class CategoryController extends AbstractController
     //Here we call EntityManagerInterface to be able to use it, and we create a var to manage entities
     public function createCategory(Request $request, EntityManagerInterface $entityManager)
     {
-
+$message = "Merci de remplir les champs";
         if ($request->isMethod('POST')) {
 
             // Create a Category
@@ -69,9 +69,11 @@ class CategoryController extends AbstractController
             // flush execute SQL's request to create a new category
             $entityManager->flush();
 
+            $message = "Categorie '" . $category->getTitle() . "' créee";
+
 
         }
-        return $this->render("category_create.html.twig");
+        return $this->render("category_create.html.twig", ['message' => $message]);
 
 
     }
