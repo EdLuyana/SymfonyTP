@@ -95,7 +95,7 @@ class CategoryController extends AbstractController
         // I use AbstractController's method to gen a from for the update category
         //I put as parameter the way for the class's model and as second parameter my fresh var created
         $form = $this->createForm(CategoryType::class, $category);
-// I get data from request
+        // I get data from request
         $form->handleRequest($request);
         // If form is submitted
         if ($form->isSubmitted()) {
@@ -107,7 +107,7 @@ class CategoryController extends AbstractController
         // I create now a view for this form to use it in the twig
         $formView = $form->createView();
 
-        return $this->render('category_create.html.twig', ['formView' => $formView]);
+        return $this->render('category_update.html.twig', ['formView' => $formView]);
 
 
     }
