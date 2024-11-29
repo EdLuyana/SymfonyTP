@@ -92,27 +92,22 @@ class CategoryController extends AbstractController
     public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, Request $request): Response {
         // I get the category in the repo by the ID mentioned in the URL
         $category = $categoryRepository->find($id);
-        $message = "Merci de remplir les champs";
-        if ($request->isMethod('POST')) {
-
-            // Using set methods to fill category's proprieties
-            $title = $request->request->get('title');
-            $color = $request->request->get('color');
-
-            $category->setTitle($title);
-            $category->setColor($color);
-            // Register it thanks to entityManager
-            // This ons allows to save and delete entities in database
-            // persist can pre-save entities
+        // I use AbstractController's method to gen a from for the update category
+        //I put as parameter the way for the class's model and as second parameter my fresh var created
+        $form = $this->createForm(CategoryType::class, $category);
+// I get data from request
+        $form->handleRequest($request);
+        // If form is submitted
+        if ($form->isSubmitted()) {
+            // Pre save data
             $entityManager->persist($category);
-            // flush execute SQL's request to create a new category
+            // Register in database
             $entityManager->flush();
-
-            $message = "Categorie '" . $category->getTitle() . "' a bien été modifiée";
-
-
         }
-        return $this->render("category_update.html.twig", ['category' => $category, 'message' => $message]);
+        // I create now a view for this form to use it in the twig
+        $formView = $form->createView();
+
+        return $this->render('category_create.html.twig', ['formView' => $formView]);
 
 
     }
