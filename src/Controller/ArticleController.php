@@ -95,31 +95,21 @@ public function updateArticle(int $id, Request $request, EntityManagerInterface 
         // I get the article in the repo by the ID mentionned in the URL
         $article = $articleRepository->find($id);
         // I set a message to explain what we are waiting from user
-        $message = "Veuillez remplir les champs";
-        // if the form is a post method :
-        if ($request->isMethod('POST')) {
-
-            // Using set methods to fill article's proprieties
-            $title = $request->request->get('title');
-            $content = $request->request->get('content');
-            $image = $request->request->get('image');
-
-            $article->setTitle($title);
-            $article->setContent($content);
-            $article->setImage($image);
-            // Register it thanks to entityManager
-            // This ons allows to save and delete entities in database
-            // persist can pre-save entities
+        // I use AbstractController'method to gen a from to update article
+        //I put as parameter the way for the class's model and as second parameter my fresh var created
+        $form = $this->createForm(ArticleType::class, $article);
+// I get data from request
+        $form->handleRequest($request);
+        // If form is submitted
+        if ($form->isSubmitted()) {
+            // Pre save data
             $entityManager->persist($article);
-            // flush execute SQL's request to create a new article
+            // Register in database
             $entityManager->flush();
-
-            $message = "L'article '" . $article->getTitle() . "' a bien été modifié";
-
-
         }
+        // I create now a view for this form to use it in the twig
+        $formView = $form->createView();
 
-        return $this->render('article_update.html.twig', ['message' => $message, 'article' => $article]);
-
+        return $this->render('article_update.html.twig', ['formView' => $formView]);
     }
 }
