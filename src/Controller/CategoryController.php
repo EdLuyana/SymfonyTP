@@ -97,18 +97,31 @@ $message = "Merci de remplir les champs";
         return $this->render('category_delete.html.twig', ['category' => $category]);
     }
     #[Route('/category/update/{id}', 'update_category', ['id' => '\d+'])]
-    public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository) {
+    public function updateCategory(int $id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository, Request $request): Response {
         // I get the category in the repo by the ID mentioned in the URL
         $category = $categoryRepository->find($id);
-        // I edit the title and the color of the category
-        $category->setTitle('Categorie mise a jour');
-        $category->setColor('red');
-        // I presave my modification in database
-        $entityManager->persist($category);
-        // flush execute SQL's request to update the category
-        $entityManager->flush();
+        $message = "Merci de remplir les champs";
+        if ($request->isMethod('POST')) {
 
-        return $this->render('category_update.html.twig', ['category' => $category]);
+            // Using set methods to fill category's proprieties
+            $title = $request->request->get('title');
+            $color = $request->request->get('color');
+
+            $category->setTitle($title);
+            $category->setColor($color);
+            // Register it thanks to entityManager
+            // This ons allows to save and delete entities in database
+            // persist can pre-save entities
+            $entityManager->persist($category);
+            // flush execute SQL's request to create a new category
+            $entityManager->flush();
+
+            $message = "Categorie '" . $category->getTitle() . "' a bien été modifiée";
+
+
+        }
+        return $this->render("category_create.html.twig", ['category' => $category, 'message' => $message]);
+
 
     }
 }

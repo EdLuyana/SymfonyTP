@@ -9,7 +9,17 @@
     <section class="articles-container">
 
         <article class="article-container">
-            Vous avez bien édité la categorie: {{ category.title }}
+            <form action="{{ path('category_update') }}" method="POST">
+                <div>
+                    <label for="title">Titre de la catégorie :</label>
+                    <input id="title" type="text" name="title" value="{{ category.title }}" required>
+                </div>
+                <div>
+                    <label for="color">Couleur de la catégorie:</label>
+                    <input id="color" name="color" type="color" value="{{ category.color }}" required>
+                </div>
+                <button type="submit">Modifier la Categorie</button>
+            </form>
         </article>
 
     </section>
