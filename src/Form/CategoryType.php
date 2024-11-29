@@ -5,8 +5,11 @@ namespace App\Form;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+
 
 class CategoryType extends AbstractType
 {
@@ -14,7 +17,8 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('color', ColorType::class, ['label' => false]);
+            ->add('color', ColorType::class, ['label' => false])
+            ->add('enregister', SubmitType::class);
         ;
     }
 
