@@ -9,7 +9,17 @@
     <section class="articles-container">
 
         <article class="article-container">
-           Vous avez bien créé la categorie: {{ category.title }}
+            <form action="{{ path('category_create') }}" method="POST">
+                <div>
+                    <label for="title">Titre de la catégorie :</label>
+                    <input id="title" type="text" name="title" placeholder="Entrez le titre de la catégorie" required>
+                </div>
+                <div>
+                    <label for="color">Couleur de la catégorie:</label>
+                    <input id="color" type="text" name="color" placeholder="Definissez la couleur de la categorie" required></input>
+                </div>
+                <button type="submit">Créer la Categori</button>
+            </form>
         </article>
 
     </section>

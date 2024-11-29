@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 
-use App\Entity\Article;
 use App\Entity\Category;
-use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -48,25 +47,31 @@ class CategoryController extends AbstractController
 
     #[Route('/category/create', name: 'category_create')]
     //Here we call EntityManagerInterface to be able to use it, and we create a var to manage entities
-    public function createCategory(EntityManagerInterface $entityManager)
+    public function createCategory(Request $request, EntityManagerInterface $entityManager)
     {
 
-        // Create a category
+        if ($request->isMethod('POST')) {
 
-        $category = new Category();
+            // Create a Category
+            $category = new Category();
+            // Using set methods to fill category's proprieties
+            $title = $request->request->get('title');
+            $color = $request->request->get('color');
 
-        // Using set methods to fill category's proprieties
-        $category->setTitle('Animals');
-        $category->setColor('orange');
+            $category->setTitle($title);
+            $category->setColor($color);
 
-        // Register it thanks to entityManager
-        // This ons allows to save and delete entities in database
-        // persist can pre-save entities
-        $entityManager->persist($category);
-        // flush execute SQL's request to create a new category
-        $entityManager->flush();
 
-        return $this->render('category_create.html.twig', ['category' => $category]);
+            // Register it thanks to entityManager
+            // This ons allows to save and delete entities in database
+            // persist can pre-save entities
+            $entityManager->persist($category);
+            // flush execute SQL's request to create a new category
+            $entityManager->flush();
+
+
+        }
+        return $this->render("category_create.html.twig");
 
 
     }

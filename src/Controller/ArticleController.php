@@ -50,7 +50,6 @@ class ArticleController extends AbstractController
     public function createArticle(Request $request, EntityManagerInterface $entityManager)
     {
 
-
         if ($request->isMethod('POST')) {
 
             // Create an article
@@ -59,14 +58,6 @@ class ArticleController extends AbstractController
             $title = $request->request->get('title');
             $content = $request->request->get('content');
             $image = $request->request->get('image');
-            if (empty($title) || empty($content)) {
-
-                return $this->render("contact.html.twig", [
-                    'error' => 'Veuillez remplir tous les champs',
-                    'title' => $title,
-                    'content' => $content,
-                ]);
-            }
 
             $article->setTitle($title);
             $article->setContent($content);
@@ -81,10 +72,7 @@ class ArticleController extends AbstractController
             // flush execute SQL's request to create a new article
             $entityManager->flush();
 
-            return $this->render('article_create.html.twig', ['article' => $article]);
 
-        } else {
-            $view = $this->renderView('404.html.twig');
         }
         return $this->render("article_create.html.twig");
 
