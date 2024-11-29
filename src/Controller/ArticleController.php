@@ -55,6 +55,17 @@ class ArticleController extends AbstractController
             // I use AbstractController'method to gen a from for the new article
         //I put as parameter the way for the class's model and as second parameter my fresh var created
         $form = $this->createForm(ArticleType::class, $article);
+// I get data from request
+        $form->handleRequest($request);
+        // If form is submitted
+        if ($form->isSubmitted()) {
+            // I auto edit creation date
+            $article->setCreatedAt(new \DateTime());
+            // Pre save data
+            $entityManager->persist($article);
+            // Register in database
+            $entityManager->flush();
+        }
         // I create now a view for this form to use it in the twig
         $formView = $form->createView();
 
