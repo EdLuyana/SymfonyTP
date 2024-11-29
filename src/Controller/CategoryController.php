@@ -120,7 +120,7 @@ $message = "Merci de remplir les champs";
 
 
         }
-        return $this->render("category_create.html.twig", ['category' => $category, 'message' => $message]);
+        return $this->render("category_update.html.twig", ['category' => $category, 'message' => $message]);
 
 
     }
